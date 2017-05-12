@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+		Quiz
+		</title>
+		<script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script>
+		<link rel=stylesheet type="text/css" href="css/Quiz.css">
+		<script src="script/Quiz.js" type="text/javascript"></script>
+	</head>
+	<body onload="initialisePage()">
+		<div id="Heading">
+			<h1>Heading.</h1>
+		</div>
+		<br />
+		<div id="Question">
+			<h2>Question.</h2>
+		</div>
+		<br />
+		<div id="Answer1">
+			<p id="Ans1" class="correct" ondragstart="dragStart(event)" draggable="true"><h3></h3></p>
+		</div>
+		<div id="Answer2">
+			<p id="Ans2" ondragstart="dragStart(event)" draggable="true"><h3></h3></p>
+		</div>
+		<br />
+		<div id="Answer3">
+			<p id="Ans3" ondragstart="dragStart(event)" draggable="true"><h3></h3></p>
+		</div>
+		<div id="Answer4">
+			<p id="Ans4" ondragstart="dragStart(event)" draggable="true"><h3></h3></p>
+		</div>
+		<br />
+		<div id="AnswerBox" class="droptarget" ondrop="drop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)">
+			<h4>Drag the correct answer here </h3>
+		</div>
+		<br />
+		<a href="#" onclick="redirectToDynamicURL()">
+			<div id="d">
+				<h2>Back</h2>
+			</div>
+		</a>
+	</body>
+</html>
+
+/*Quiz JavaScript*/
+var age = parseInt(getParameter('age', window.location.href));
+var subject = parseInt(getParameter('subject', window.location.href));
+var levels = ["Pre-School", "Primary", "Secondary", "College", "Degree", "Post-Graduate"];
+var classes = ["Computing", "Mathematics", "English", "Biology", "Chemistry", "Physics", "Geography", "Law", "History"];
+var noOfQuestions = 10;
+var questions = new Array();
+var answers = create2DArray(noOfQuestions);
+var hasCls;
+
+function initialisePage(){
+	setTitles();
+	populateArrays();
+	setQuestion(0);
+}
+
+function setTitles(){
+	var newTitle;
+
+	if (age == null || age < 1 || 6 < age){
+		alert("Error - invalid age detected! Returning to Main Menu.");
+		window.location = "MainMenu.htm";
+	}
+	else if (subject == null || subject < 1 || 9 < subject){
+		alert("Error - invalid subject detected! Returning to Subject Menu.");
+		window.location = "SubMenu.htm?age=" + age;
+	}
+	newTitle = levels[age-1] + " Level " + classes[subject-1];
+	document.title = newTitle;
+	Heading.innerHTML = "<h1>" + newTitle + "</h1>";
+}
+
+function setQuestion(questionNo){
+	Question.innerHTML = "<h2>" + questions[questionNo] + "</h2>";
+	for (var i = 0; i < 4; i++){
+		document.getElementById("Ans" + (i + 1)).innerHTML = "<h3>" + answers[questionNo][i] + "</h3>";
+	}
+}
+
+function populateArrays(){
+	var noOfAnswers = 4;
+	var answer;
+
+	for (var j = 0; j < noOfQuestions; j++){
+		questions.push(levels[age-1] + " " + classes[subject-1] + " Question " + (j + 1));
+		for (var i = 0; i < noOfAnswers; i++){
+			answer = levels[age-1] + " " + classes[subject-1] + " Question " + (j + 1) + " Answer " + (i + 1) + ".";
+			answers[j][i] = answer;
+		}
+	}
+}
+
+function dragStart(event) {
+    event.dataTransfer.setData("Text", event.target.id);
+}
+
+function dragEnter(event) {
+    if ( event.target.className == "droptarget" ) {
+        event.target.style.border = "1px dotted red";
+    }
+}
+
+function dragLeave(event) {
+    if ( event.target.className == "droptarget" ) {
+        event.target.style.border = "1px solid black";
+    }
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drop(event) {
+    event.preventDefault();
+    var data = event.dataTransfer.getData("Text");
+    event.target.appendChild(document.getElementById(data));
+	if (hasCls(document.getElementById(Ans1))){
+		alert("Correct!");
+	} else {
+		alert("Incorrect! Please try again!");
+	}
+}
+
+$().ready(function(){
+    hasCls = function(input){
+        if (input).hasClass("correct"){true;} else { false;};
+    };
+});
+
+function getParameter(name, url) {
+	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+	var	results = regex.exec(url);
+	return results[2];
+}
+
+function redirectToDynamicURL(){
+	window.location = createDynamicURL();
+}
+			
+function createDynamicURL(){
+	var URL = "SubMenu.htm?age=" + age;
+	return URL;
+}
+
+function create2DArray(size) {
+	var arr = [];
+
+	for (var i = 0; i < size; i++) {
+		arr[i] = [];
+	}
+	return arr;
+}

@@ -1,0 +1,38 @@
+#a {
+	height: 30%;
+}
+
+#b {
+	height: 30%;
+}
+
+#c {
+	height: 30%;
+}
+
+#d {
+	width: 99.88%;
+	min-width: 604px;
+	height: 9.2%;
+	min-height: 88px;
+    border: 1px solid black;
+	background: #D0D0D0;
+	display: inline-block;
+}
+
+#d:hover {
+    background: #A0A0A0;
+    cursor: pointer;
+}
+
+h2 {
+	color: #000;
+	font-family: 'Quicksand', sans-serif;
+	font-size: 28px;
+	font-weight: 400;
+	line-height: 60px;
+	margin: 0;
+	text-align: center;
+	position: relative;
+    top: 30%;
+}

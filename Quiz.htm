@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+		Quiz
+		</title>
+		<script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script>
+		<link rel=stylesheet type="text/css" href="css/Quiz.css">
+		<script src="script/Quiz.js" type="text/javascript"></script>
+	</head>
+	<body onload="initialisePage()">
+		<div id="Heading">
+			<h1>Heading.</h1>
+		</div>
+		<br />
+		<div id="Question">
+			<h2>Question.</h2>
+		</div>
+		<br />
+		<div id="Answer1" onclick="checkAnswer(1)">
+			<p id="Ans1" class="correct"></p>
+		</div>
+		<div id="Answer2" onclick="checkAnswer(2)">
+			<p id="Ans2"></p>
+		</div>
+		<br />
+		<div id="Answer3" onclick="checkAnswer(3)">
+			<p id="Ans3"></p>
+		</div>
+		<div id="Answer4" onclick="checkAnswer(4)">
+			<p id="Ans4"><h</p>
+		</div>
+		<br />
+		<div id="AnswerBox">
+			<div id="fdbk">
+				<img id="feedback" src="">
+			</div>
+			<div id="nxt">
+				<img id="next" src="images/next.png">
+			</div>
+		</div>
+		<br />
+		<a href="#" onclick="redirectToDynamicURL()">
+			<div id="d">
+				<h2>Back</h2>
+			</div>
+		</a>
+	</body>
+</html>
